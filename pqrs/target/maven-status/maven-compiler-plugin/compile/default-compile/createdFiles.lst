@@ -1,0 +1,15 @@
+Servlets\SvRegistrarUsuario.class
+Servlets\SvCambioRol.class
+Conexion\Conectar.class
+Modelo\Usuario.class
+Modelo\Pqrs.class
+Servlets\SvRespuesta.class
+Servlets\SvEliminarUsuario.class
+Servlets\SvEditarPqrs.class
+Servlets\SvEliminarPqrs.class
+Servlets\SvMostrarPdf.class
+com\mycompany\pqrs\JakartaRestConfiguration.class
+Servlets\SvIngreso.class
+Servlets\SvPqrs.class
+com\mycompany\pqrs\resources\JakartaEE8Resource.class
+Servlets\SvEditarUsuario.class

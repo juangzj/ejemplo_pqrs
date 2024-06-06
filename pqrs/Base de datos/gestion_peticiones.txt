@@ -1,0 +1,63 @@
+-- Crear la base de datos
+CREATE DATABASE gestion_peticiones;
+USE gestion_peticiones;
+
+-- Crear tabla de tipo de usuario
+CREATE TABLE tipo_usuario (
+  idTipoUsuario INT(11) NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY (idTipoUsuario)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Insertar tipos de usuario
+INSERT INTO tipo_usuario (nombre) VALUES 
+('Usuario Normal'),
+('Usuario Administrador');
+
+-- Crear tabla de tipos de PQRS
+CREATE TABLE tipo_pqrs (
+  idTipoPqrs INT(11) NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY (idTipoPqrs)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Insertar tipos de PQRS
+INSERT INTO tipo_pqrs (nombre) VALUES 
+('Peticion'),
+('Queja'),
+('Reclamo'),
+('Sugerencia');
+
+-- Crear tabla de usuarios 
+CREATE TABLE usuario (
+  idUsuario INT(11) NOT NULL AUTO_INCREMENT,
+  nombreCompleto VARCHAR(100) DEFAULT NULL,
+  numeroTelefono VARCHAR(20) DEFAULT NULL,
+  correo VARCHAR(100) DEFAULT NULL,
+  contrasenia VARCHAR(50) DEFAULT NULL,
+  cedula VARCHAR(20) DEFAULT NULL,
+  tipoUsuario INT(11) NOT NULL,
+  PRIMARY KEY (idUsuario),
+  FOREIGN KEY (tipoUsuario) REFERENCES tipo_usuario(idTipoUsuario)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Crear tabla de PQRS
+CREATE TABLE pqrs (
+  idPQRS INT(11) NOT NULL AUTO_INCREMENT,
+  nombreUsuario VARCHAR(100) DEFAULT NULL,
+  correoUsuario VARCHAR(100) DEFAULT NULL,
+  mensaje TEXT,
+  archivoAdjunto MEDIUMBLOB DEFAULT NULL,
+  nombreArchivo VARCHAR(100) DEFAULT 'No hay Archivo adjunto',
+  estado VARCHAR(20) DEFAULT 'No leída',
+  respuesta TEXT,
+  idTipoPqrs INT(11) NOT NULL,
+  idUsuario INT(11) NOT NULL,
+  PRIMARY KEY (idPQRS),
+  FOREIGN KEY (idTipoPqrs) REFERENCES tipo_pqrs(idTipoPqrs),
+  FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Agregar el primer usuario administrador
+INSERT INTO usuario (nombreCompleto, numeroTelefono, correo, contrasenia, cedula, tipoUsuario) 
+VALUES ('admin', '123456789', 'admin@gmail.com', 'admin', '1234567890', 2);
